@@ -58,11 +58,16 @@ const mergeDeltas = (orders: Array<[number, number]>, deltas: Array<[number, num
   return ordersUpdated;
 };
 
+export const calculateTotal = (array: Array<[number, number]>) => (
+  array.reduce((accumulator, currentValue) => accumulator + currentValue[1], 0)
+);
+
 const transformListItems = (items: Array<[number, number]>, type: OrderType, startingKey: number): OrderbookItem[] => (
   items.map((item, index) => ({
     id: (index + startingKey).toString(),
     price: item[0],
     size: item[1],
+    total: calculateTotal(items.slice(index, items.length)) || item[1],
     type
   }))
 );

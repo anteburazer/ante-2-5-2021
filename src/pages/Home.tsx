@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { orderbookWebocketClient } from 'core/webSocketClients';
-import OrderList from 'pages/OrderList';
+import OrderList from 'components/OrderList';
 import { Orders } from 'core/models';
 
 const Home: React.FC = () => {
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
         }
       });
 
-    setTimeout(() => orderbookWebocketClient.close(), 10000);
+    // setTimeout(() => orderbookWebocketClient.close(), 1000);
 
     return () => {
       feedSnapshotSubscription.unsubscribe();
@@ -24,8 +24,15 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="container">
-      {orders && <OrderList data={orders} />}
+    <div className="container-fluid p-0">
+      <nav className="navbar navbar-dark bg-dark">
+        <span className="navbar-brand mb-0 h1">Orderbook</span>
+      </nav>
+
+      <div className="container my-5 text-center">
+        <h2 className="mb-4">XBT/USD Orderbook</h2>
+        {orders && <OrderList data={orders} />}
+      </div>
     </div>
   );
 };

@@ -15,3 +15,7 @@ export const isInArray = (array: Array<number[]>, element: number): number => {
 
   return -1;
 }
+
+export const formatNumber = (number: number) => {
+  return new Intl.NumberFormat("en-US").format(number);
+};

@@ -37,6 +37,7 @@ export interface OrderbookItem {
   id: string,
   price: number;
   size: number;
+  total: number;
   type: OrderType;
 }
 
