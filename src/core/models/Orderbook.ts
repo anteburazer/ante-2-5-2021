@@ -45,3 +45,8 @@ export interface OrderbookList {
   asks: OrderbookItem[];
   bids: OrderbookItem[];
 }
+
+export type WsMessage = OrderbookInfoResponse
+  | OrderbookSubscribedResponse
+  | OrderbookDeltasResponse
+  | OrderbookSnapshotResponse;

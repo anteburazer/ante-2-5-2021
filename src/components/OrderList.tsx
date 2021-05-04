@@ -7,23 +7,21 @@ const rowClasses = (order: OrderbookItem) => (
   order.type === OrderType.Ask ? 'order-ask' : 'order-bid'
 );
 
-const cellFormatter = (cell: number) => formatNumber(cell);
-
 const columns = [
   {
     dataField: 'price',
     text: 'Price',
-    formatter: cellFormatter,
+    formatter: formatNumber,
   },
   {
     dataField: 'size',
     text: 'Size',
-    formatter: cellFormatter,
+    formatter: formatNumber,
   },
   {
     dataField: 'total',
     text: 'Total',
-    formatter: cellFormatter,
+    formatter: formatNumber,
   }
 ];
 
@@ -31,20 +29,15 @@ interface IOrderListProps {
   data: Orders;
 }
 
-const OrderList: React.FC<IOrderListProps> = ({ data }) => {
-  return (
-    <div>
-      <BootstrapTable
-        bootstrap4
-        keyField="id"
-        data={orderbookAdapter(data)}
-        columns={columns}
-        bordered={false}
-        rowClasses={rowClasses}
-        headerWrapperClasses="table-header"
-      />
-    </div>
-  );
-};
+const OrderList: React.FC<IOrderListProps> = ({ data }) => (
+  <BootstrapTable
+    bootstrap4
+    keyField="id"
+    data={orderbookAdapter(data)}
+    columns={columns}
+    bordered={false}
+    rowClasses={rowClasses}
+  />
+);
 
 export default OrderList;

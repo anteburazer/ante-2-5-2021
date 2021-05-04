@@ -1,37 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { orderbookWebocketClient } from 'core/webSocketClients';
 import OrderList from 'components/OrderList';
+import Navbar from 'components/Navbar';
+import Spinner from 'components/Spinner';
 import { Orders } from 'core/models';
 
 const Home: React.FC = () => {
   const [orders, setOrders] = useState<Orders | undefined>(undefined);
 
-  useEffect(() => {
-    orderbookWebocketClient.getOrders();
+  /**
+   * Subscribe to orders observable
+   */
+  const subscribeToOrders = () => {
+    // Start websocket communication
+    orderbookWebocketClient.start();
 
-    const feedSnapshotSubscription = orderbookWebocketClient.ordersFeed
+    // Subscribe to Orders observable
+    return orderbookWebocketClient.ordersFeed
       .subscribe({
-        next: (v) => {
-          setOrders(v);
-        }
+        next: (newOrders) => setOrders(newOrders)
       });
+  };
 
-    // setTimeout(() => orderbookWebocketClient.close(), 1000);
+  useEffect(() => {
+    // Subscribe to Orders observable
+    const ordersSubscription = subscribeToOrders();
 
-    return () => {
-      feedSnapshotSubscription.unsubscribe();
-    };
+    // Unsubscribe from observable on componenent unmount
+    return () => ordersSubscription.unsubscribe();
   }, []);
 
   return (
     <div className="container-fluid p-0">
-      <nav className="navbar navbar-dark bg-dark">
-        <span className="navbar-brand mb-0 h1">Orderbook</span>
-      </nav>
+      <Navbar />
 
       <div className="container my-5 text-center">
         <h2 className="mb-4">XBT/USD Orderbook</h2>
-        {orders && <OrderList data={orders} />}
+
+        { orders
+            ? <OrderList data={orders} />
+            : <Spinner className="center-fixed" />
+        }
       </div>
     </div>
   );

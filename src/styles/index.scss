@@ -2,7 +2,7 @@
 @import '~bootstrap/scss/bootstrap'; // Bootstrap original styles
 
 // Vendors overrides
-// IMPORT OVERRIDES HERE
+@import 'styles/vendor/bootstrap/index.scss';
 
 // Custom styles
 @import 'styles/core/index.scss';

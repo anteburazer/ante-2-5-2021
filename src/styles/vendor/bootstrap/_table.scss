@@ -1,0 +1,52 @@
+@import 'styles/core/variables.scss';
+
+.table {
+  thead {
+    th {
+      border: 4px solid $black;
+      border-left: none;
+      border-right: none;
+      font-size: 1.2em;
+      text-align: center;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      color: $gray-2;
+    }
+  }
+
+  tr {
+    &:hover {
+      td {
+        background-color: rgba(255, 255, 255, 0.075);
+      }
+    }
+
+    &.order-ask {
+      td {
+        color: $green;
+      }
+    }
+
+    &.order-bid {
+      td {
+        color: $red;
+      }
+    }
+  }
+
+  td {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  th, td {
+    border: 3px solid $black;
+    background-color: $gray-3;
+    border-left: none;
+    border-right: none;
+    width: 33.33%;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+}
